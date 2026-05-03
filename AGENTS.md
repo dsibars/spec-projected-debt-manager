@@ -18,6 +18,8 @@ This layer is purely declarative and agnostic to the final implementation langua
 
 - **`/shared/skills/`**: The "Physics" of the system. Tech-stack laws without business logic.
     - *Structure:* `[category]/[technology]` (e.g., `persistence/postgres`, `ui/tailwind`).
+- **`/specs/shared/`**: Global specifications that apply across all modules.
+    - `presentation.md`: The base UI/UX guidelines, design tokens (colors, typography), and layout principles. Module-specific presentation specs inherit and can override these.
 - **`/specs/[module]/`**: Atomic Business Units. Follows DDD (Domain Driven Design).
     - `definitions/`: The Ubiquitous Language. Glossary, core domain concepts, and explicitly defined **Domain Errors** (e.g., `InsufficientFunds`, `UserSuspended`).
     - `models/`: (Strictly 1 File per Model) Data contracts, properties, and business constraints (e.g., `User`, `Session`).
