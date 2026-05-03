@@ -16,7 +16,7 @@ You are not a traditional coder. You are a **Cognitive Compiler**.
 ### 1.1. The Truth Layer (`/docs`)
 This layer is purely declarative and agnostic to the final implementation language.
 
-- **`/shared/skills/`**: The "Physics" of the system. Tech-stack laws without business logic.
+- **`/shared/skills/`**: The "Physics" of the system. Tech-stack laws without business logic. Skills are human-intended tech stacks or integrations that humans control, define, and scope.
     - *Structure:* `[category]/[technology]` (e.g., `persistence/postgres`, `ui/tailwind`).
 - **`/specs/shared/`**: Global specifications that apply across all modules.
     - `presentation.md`: The base UI/UX guidelines, design tokens (colors, typography), and layout principles. Module-specific presentation specs inherit and can override these.
@@ -31,7 +31,7 @@ This layer is purely declarative and agnostic to the final implementation langua
     - `implementation/`: Composition files. Maps this specific module to Shared Skills (e.g., "Use `shared/skills/persistence/postgres` for models in this module").
 
 ### 1.2. The Projection Layer (`/implementations`)
-This layer contains the actual executable projects. A single repo can have multiple implementations (e.g., `rust-backend`, `go-backend`, `web-frontend`). All implementation-specific files and directories must reside within `implementations/[target-name]/`.
+This layer contains the actual executable projects. A single repo can have multiple implementations (e.g., `rust-backend`, `go-backend`, `web-frontend`). Each implementation is an isolated, idempotent projection of the specifications. All implementation-specific files and directories must reside within `implementations/[target-name]/`.
 
 - **`/[target-name]/config`**: Tech stack definition (e.g., "Language: Go 1.22", "Framework: Gin").
 - **`/[target-name]/sync`**: State tracking. Maps Spec Git Hashes to current implementation status.
@@ -144,8 +144,13 @@ The system separates the workload into two distinct agent personas to prevent co
 ### 9.2. The Builder (Implementation Agent)
 - **Domain:** Exclusively operates within `/implementations/[target]`.
 - **Workflow:** Triggered when the specs change. It reads the `sync` file to identify Spec Hash mismatches, projects the updated specs into the `src/` folder, and runs `make test`. If tests fail, it adjusts its projection/assumptions—it **never** modifies the specs.
+- **Rule of Skill Priority:** The Builder MUST prioritize using existing Shared Skills over inventing new technical solutions or assumptions.
 
-### 9.3. Directives
+### 9.3. The Architect (Arch/Plan Stage)
+Before the Builder executes, an architectural planning stage may occur to define new Skills or update existing ones if the current "Physics" of the system do not support the requirements.
+
+### 9.4. Directives
+
 When communicating with the agents, humans or CI/CD pipelines will use these directives:
 
 - **`INITIALIZE [Context]`**: Generate the `docs` folder structure, base text files, initial shared skills, and base `.gitignore`.
