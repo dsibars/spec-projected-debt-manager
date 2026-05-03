@@ -6,4 +6,4 @@ Enables the projection of the application into a single-file HTML delivery using
 ## Constraints
 - Use `vite-plugin-singlefile` or equivalent.
 - All assets (CSS, JS) must be inlined.
-- Output should be a single `index.html`.
+- Output should be a single `index.html` located in the `dist/` directory of the implementation.
