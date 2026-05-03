@@ -21,6 +21,11 @@ The Debt Manager application should feel trustworthy, clean, and efficient. It u
   - Body: 1rem, Regular.
   - Caption: 0.875rem, Regular.
 
+## Global UI Patterns
+- **Binary Choices**: Use a Toggle or Switch for binary states (e.g., "I owe" vs "They owe me").
+- **Empty States**: Every list must provide an empty state with a clear CTA.
+- **Currency**: Always show currency symbols and two decimal places (e.g., $10.00).
+
 ## Layout Principles
 - **Responsive:** Mobile-first approach.
 - **Desktop:** Use sidebars or multi-column layouts to take advantage of wider screens.
