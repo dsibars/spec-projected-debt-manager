@@ -1,0 +1,10 @@
+Target Stack: React / Vite / Tailwind / Electron
+Persistence: LocalStorage
+Platform: Electron
+Output: dist/ (Web) & dist_electron/ (Binaries)
+Skills:
+- @shared/skills/language/typescript
+- @shared/skills/ui/react
+- @shared/skills/ui/tailwind
+- @shared/skills/persistence/localstorage
+- @shared/skills/platform/electron
