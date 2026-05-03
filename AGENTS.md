@@ -30,7 +30,7 @@ This layer is purely declarative and agnostic to the final implementation langua
     - `implementation/`: Composition files. Maps this specific module to Shared Skills (e.g., "Use `shared/skills/persistence/postgres` for models in this module").
 
 ### 1.2. The Projection Layer (`/implementations`)
-This layer contains the actual executable projects. A single repo can have multiple implementations (e.g., `rust-backend`, `go-backend`, `web-frontend`).
+This layer contains the actual executable projects. A single repo can have multiple implementations (e.g., `rust-backend`, `go-backend`, `web-frontend`). All implementation-specific files and directories must reside within `implementations/[target-name]/`.
 
 - **`/[target-name]/config`**: Tech stack definition (e.g., "Language: Go 1.22", "Framework: Gin").
 - **`/[target-name]/sync`**: State tracking. Maps Spec Git Hashes to current implementation status.
