@@ -20,6 +20,7 @@ This layer is purely declarative and agnostic to the final implementation langua
     - *Structure:* `[category]/[technology]` (e.g., `persistence/postgres`, `ui/tailwind`).
 - **`/specs/shared/`**: Global specifications that apply across all modules.
     - `presentation.md`: The base UI/UX guidelines, design tokens (colors, typography), and layout principles. Module-specific presentation specs inherit and can override these.
+    - `implementation.md`: The base technical composition rules. Module-specific implementation specs inherit these shared skill assignments.
 - **`/specs/[module]/`**: Atomic Business Units. Follows DDD (Domain Driven Design).
     - `definitions/`: The Ubiquitous Language. Glossary, core domain concepts, and explicitly defined **Domain Errors** (e.g., `InsufficientFunds`, `UserSuspended`).
     - `models/`: (Strictly 1 File per Model) Data contracts, properties, and business constraints (e.g., `User`, `Session`).
@@ -103,6 +104,7 @@ Pending Diffs:
 When generating code, if a technical choice (e.g., library choice, directory naming convention, exact framework version) is required but no specific Skill dictates it:
 
 - **Architectural Consistency:** Do not mix multiple technologies that serve the same purpose. Maintain a unified stack within the implementation.
+- **Technical Completeness:** The Builder MUST ensure that every implementation is technically complete. This includes generating all necessary configuration files (e.g., `tsconfig.json`, `package.json`, `Makefile`, `.gitignore`) required by the chosen tech stack and Shared Skills.
 - **The Assumptions Ledger:** You **MUST** record any "vibe-based" technical choices in `/implementations/[target]/tech_assumptions`.
     - *Format:* `[Date] - [Assumption Made] - [Reasoning] - [Affected Modules]`
 - **Promotion Workflow:** This ledger allows humans to review assumptions. Once validated, the human or agent will promote the assumption into a formal `@shared/skills/` file, and remove it from the ledger.
