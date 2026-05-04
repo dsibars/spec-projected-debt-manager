@@ -12,3 +12,4 @@
 ## Constraints
 - `name` cannot be empty.
 - `groupIds` refers to existing [[models/Group]] IDs.
+- `isArchived`: Boolean for soft deletion.
