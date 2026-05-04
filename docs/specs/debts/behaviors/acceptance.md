@@ -59,3 +59,25 @@ Scenario: Soft deleting a debt
   When I delete the debt
   Then the Debt should be marked as `isDeleted`
   But it should still exist in the database for history
+
+## Feature: Restoring a Debt
+
+Scenario: Restoring a soft-deleted debt
+  Given a Debt exists and is marked as deleted
+  When I restore the debt
+  Then the Debt should no longer be marked as `isDeleted`
+  And it should appear in the active ledger
+
+## Feature: Changing a Debt's Person
+
+Scenario: Reassigning a debt to another valid person
+  Given a Debt exists assigned to Person A
+  And Person B exists
+  When I change the person of the debt to Person B
+  Then the Debt should be associated with Person B
+  And the debt should no longer be associated with Person A
+
+Scenario: Reassigning to an invalid person
+  Given a Debt exists assigned to Person A
+  When I try to change the person to a non-existent Person C
+  Then it should fail with "PersonNotFound" error

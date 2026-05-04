@@ -1,27 +1,33 @@
 # Skill: UI Patterns
 
 ## Description
-Standardized UI/UX patterns to ensure consistency across the application.
+Standardized UI/UX patterns that map domain interactions to predictable visual elements.
 
-## 1. Binary Toggles
-- **When to use**: For settings or choices with exactly two states (e.g., "I owe" vs "They owe me", "Active" vs "Archived").
-- **Implementation**: Use a toggle switch or a segmented button group rather than a checkbox when the choice is between two equal options rather than "On/Off".
+## 1. Binary Choices
+- **Domain:** Mutually exclusive options (e.g., "I owe" vs "They owe me").
+- **Pattern:** Segmented Button Group or Toggle Switch. Never use standard checkboxes for this.
 
 ## 2. Empty States
-- **When to use**: When a list or dashboard has no data.
-- **Guidance**:
-    - Include a friendly illustration or icon.
-    - Provide a clear call-to-action (CTA) button (e.g., "Add your first debt").
-    - Briefly explain the value of the feature.
+- **Domain:** Collections with zero items (no debts, no people).
+- **Pattern:** Centralized container with an icon, explanatory text, and a primary Call-to-Action (CTA) to add the first item. Do not show an empty table or list frame.
 
-## 3. Input Masking & Validation
-- **Currency Inputs**: Automatically format as the user types (e.g., adding decimal points, restricting to numbers).
-- **Immediate Feedback**: Show validation errors inline as the user finishes typing (on blur) or if they attempt to submit invalid data.
+## 3. Destructive Actions
+- **Domain:** Deleting or Archiving records.
+- **Pattern:**
+  - Buttons must use the `Rose` (Negative) or `Amber` (Warning) token.
+  - Action MUST trigger a Confirmation Dialog Modal explaining the consequence before executing.
 
-## 4. Confirmation Dialogs
-- **When to use**: For destructive actions (Delete, Reset).
-- **Guidance**: Use "Rose" (Red) for the action button and clearly state what will be lost.
+## 4. Financial Inputs (Currency)
+- **Domain:** Entering `totalAmount` or `paymentAmount`.
+- **Pattern:** Input fields must use masking to prevent non-numeric entry, implicitly format with two decimal places, and display the currency symbol.
 
-## 5. Ledger Visualization
-- **History**: Display payments in a reverse-chronological list (newest first).
-- **Status Indicators**: Use consistent badges for "Paid", "Overdue", and "Partial".
+## 5. Standardized Feedback
+- **Domain:** Saving a record, encountering an error.
+- **Pattern:**
+  - Success: Non-blocking Toast notification.
+  - Minor Error (Validation): Inline red text (`Text-Rose`) below the specific input.
+  - Major Error (System): Blocking or prominent top banner.
+
+## 6. Ledger History Visualization
+- **Domain:** Listing payments over time.
+- **Pattern:** Reverse-chronological list (newest at the top), with the most recent transaction visually distinct or separated by subtle lines.
