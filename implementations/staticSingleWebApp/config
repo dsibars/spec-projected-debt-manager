@@ -2,4 +2,6 @@ Target Stack: React / Vite / Tailwind
 Persistence: LocalStorage
 Build: vite-plugin-singlefile
 Platform: Static Web
+Language: TypeScript
+Skills: @shared/skills/language/typescript, @shared/skills/ui/react_functional_components, @shared/skills/ui/tailwind_strict_tokens, @shared/skills/ui/patterns, @shared/skills/persistence/localstorage, @shared/skills/platform/static-web, @shared/skills/logic/money-handling, @shared/skills/build/vite-single-file
 Output: dist/index.html

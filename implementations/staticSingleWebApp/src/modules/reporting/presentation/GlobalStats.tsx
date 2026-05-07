@@ -1,39 +1,53 @@
-import React from 'react';
-import { useData } from '../../../shared/DataContext';
+import React, { useMemo } from 'react';
+import { useData } from '../../shared/implementation/useData';
+import { calculateGlobalBalance } from '../logic/CalculateGlobalBalance';
+import { formatCurrency } from '../../shared/implementation/money-utils';
+import { TrendingUp, TrendingDown, Scale } from 'lucide-react';
 
 export const GlobalStats: React.FC = () => {
   const { debts } = useData();
-  const activeDebts = debts.filter(d => !d.isDeleted);
 
-  const totalReceivable = activeDebts
-    .filter(d => d.direction === 'OWED_TO_ME')
-    .reduce((sum, d) => sum + d.currentBalance, 0);
-
-  const totalPayable = activeDebts
-    .filter(d => d.direction === 'I_OWE')
-    .reduce((sum, d) => sum + d.currentBalance, 0);
-
-  const netBalance = totalReceivable - totalPayable;
+  const stats = useMemo(() => calculateGlobalBalance(debts), [debts]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h3 className="text-slate-500 text-sm font-medium mb-1">Net Balance</h3>
-        <p className={`text-3xl font-bold ${netBalance >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
-          ${netBalance.toLocaleString()}
-        </p>
+      {/* Receivable */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center gap-3 text-emerald-600 mb-2">
+          <div className="p-2 bg-emerald-50 rounded-lg">
+            <TrendingUp size={24} />
+          </div>
+          <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500">Total Receivable</h3>
+        </div>
+        <div className="text-3xl font-bold text-slate-900">
+          {formatCurrency(stats.totalReceivable)}
+        </div>
       </div>
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h3 className="text-slate-500 text-sm font-medium mb-1">Total Receivable</h3>
-        <p className="text-3xl font-bold text-emerald-600">
-          ${totalReceivable.toLocaleString()}
-        </p>
+
+      {/* Payable */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center gap-3 text-rose-600 mb-2">
+          <div className="p-2 bg-rose-50 rounded-lg">
+            <TrendingDown size={24} />
+          </div>
+          <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500">Total Payable</h3>
+        </div>
+        <div className="text-3xl font-bold text-slate-900">
+          {formatCurrency(stats.totalPayable)}
+        </div>
       </div>
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-        <h3 className="text-slate-500 text-sm font-medium mb-1">Total Payable</h3>
-        <p className="text-3xl font-bold text-rose-600">
-          ${totalPayable.toLocaleString()}
-        </p>
+
+      {/* Net Balance */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center gap-3 text-blue-700 mb-2">
+          <div className="p-2 bg-blue-50 rounded-lg">
+            <Scale size={24} />
+          </div>
+          <h3 className="font-semibold text-sm uppercase tracking-wider text-slate-500">Net Balance</h3>
+        </div>
+        <div className={`text-3xl font-bold ${stats.netBalance > 0 ? 'text-emerald-600' : stats.netBalance < 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+          {formatCurrency(stats.netBalance)}
+        </div>
       </div>
     </div>
   );

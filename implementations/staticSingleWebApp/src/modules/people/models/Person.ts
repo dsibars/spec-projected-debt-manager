@@ -6,4 +6,5 @@ export interface Person {
   groupIds: string[];
   createdAt: number;
   updatedAt: number;
+  isArchived?: boolean;
 }

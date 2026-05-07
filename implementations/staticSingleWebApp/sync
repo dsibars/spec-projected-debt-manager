@@ -3,7 +3,7 @@ Target Stack: React / Vite / Tailwind
 Last Global Sync: 2024-05-23 00:00:00
 
 Module Status:
-[debts]: INITIALIZING
-[people]: INITIALIZING
-[reporting]: INITIALIZING
-[shared]: INITIALIZING
+[debts]: SYNCED (Spec Hash: manual-sync)
+[people]: SYNCED (Spec Hash: manual-sync)
+[reporting]: SYNCED (Spec Hash: manual-sync)
+[shared]: SYNCED (Spec Hash: manual-sync)
